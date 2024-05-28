@@ -29,7 +29,7 @@ public class BackBufferDisplay implements TerminalDisplay {
   }
 
   @Override
-  public void setCursorShape(@NotNull CursorShape cursorShape) {
+  public void setCursorShape(@Nullable CursorShape cursorShape) {
   }
 
   @Override
@@ -46,10 +46,6 @@ public class BackBufferDisplay implements TerminalDisplay {
 
   @Override
   public void useAlternateScreenBuffer(boolean useAlternateScreenBuffer) {
-  }
-
-  @Override
-  public void setBlinkingCursor(boolean isCursorBlinking) {
   }
 
   @Override

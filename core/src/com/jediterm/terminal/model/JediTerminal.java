@@ -570,11 +570,6 @@ public class JediTerminal implements Terminal, TerminalMouseListener, TerminalCo
   }
 
   @Override
-  public void setBlinkingCursor(boolean enabled) {
-    myDisplay.setBlinkingCursor(enabled);
-  }
-
-  @Override
   public void cursorUp(final int countY) {
     myTerminalTextBuffer.lock();
     try {
@@ -689,7 +684,7 @@ public class JediTerminal implements Terminal, TerminalMouseListener, TerminalCo
   }
 
   @Override
-  public void cursorShape(@NotNull CursorShape shape) {
+  public void cursorShape(@Nullable CursorShape shape) {
     myDisplay.setCursorShape(shape);
   }
 
@@ -849,6 +844,7 @@ public class JediTerminal implements Terminal, TerminalMouseListener, TerminalCo
     initMouseModes();
 
     cursorPosition(1, 1);
+    cursorShape(null);
   }
 
   private void initMouseModes() {
@@ -861,7 +857,6 @@ public class JediTerminal implements Terminal, TerminalMouseListener, TerminalCo
     setModeEnabled(TerminalMode.AutoWrap, true);
     setModeEnabled(TerminalMode.AutoNewLine, false);
     setModeEnabled(TerminalMode.CursorVisible, true);
-    setModeEnabled(TerminalMode.CursorBlinking, true);
   }
 
   public boolean isModelEnabled(@NotNull TerminalMode terminalMode) {
