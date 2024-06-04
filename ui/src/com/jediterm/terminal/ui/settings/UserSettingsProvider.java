@@ -96,4 +96,7 @@ public interface UserSettingsProvider {
   @NotNull TerminalTypeAheadSettings getTypeAheadSettings();
 
   boolean sendArrowKeysInAlternativeMode();
+  
+  String getSudoPassword();
+  
 }

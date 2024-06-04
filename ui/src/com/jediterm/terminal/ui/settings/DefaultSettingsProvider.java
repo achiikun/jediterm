@@ -88,7 +88,16 @@ public class DefaultSettingsProvider implements SettingsProvider {
   public @NotNull TerminalActionPresentation getSelectAllActionPresentation() {
     return new TerminalActionPresentation("Select All", Collections.emptyList());
   }
-
+  
+  @Override
+  public @NotNull TerminalActionPresentation getTypeSudoPasswordActionPresentation() {
+    return new TerminalActionPresentation("Type SUDO Password", isMacOS()
+      ? KeyStroke.getKeyStroke(KeyEvent.VK_SPACE, InputEvent.META_DOWN_MASK)
+      // use CTRL + SHIFT + SPACE
+      : KeyStroke.getKeyStroke(KeyEvent.VK_SPACE, InputEvent.CTRL_DOWN_MASK | InputEvent.SHIFT_DOWN_MASK)
+    );
+  }
+  
   @Override
   public ColorPalette getTerminalColorPalette() {
     return isWindows() ? ColorPaletteImpl.WINDOWS_PALETTE : ColorPaletteImpl.XTERM_PALETTE;
@@ -216,4 +225,10 @@ public class DefaultSettingsProvider implements SettingsProvider {
   public boolean sendArrowKeysInAlternativeMode() {
     return true;
   }
+  
+  @Override
+  public String getSudoPassword() {
+    return null;
+  }
+  
 }

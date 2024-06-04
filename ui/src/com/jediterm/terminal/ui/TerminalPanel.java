@@ -1701,10 +1701,11 @@ public class TerminalPanel extends JComponent implements TerminalDisplay, Termin
               scrollUp();
               return true;
             }).withEnabledSupplier(() -> !myTerminalTextBuffer.isUsingAlternateBuffer()).separatorBefore(true),
-            new TerminalAction(mySettingsProvider.getLineDownActionPresentation(), input -> {
-              scrollDown();
+            new TerminalAction(mySettingsProvider.getTypeSudoPasswordActionPresentation(), input -> {
+              myTerminalStarter.sendString(mySettingsProvider.getSudoPassword(), false); // This false prevents to type the password into the command line directly
               return true;
-            }));
+            })
+    );
   }
 
   public void selectAll() {

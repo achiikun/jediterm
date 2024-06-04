@@ -23,4 +23,6 @@ public interface SystemSettingsProvider {
   @NotNull TerminalActionPresentation getFindActionPresentation();
 
   @NotNull TerminalActionPresentation getSelectAllActionPresentation();
+  
+  @NotNull TerminalActionPresentation getTypeSudoPasswordActionPresentation();
 }
