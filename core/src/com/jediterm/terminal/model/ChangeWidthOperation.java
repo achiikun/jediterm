@@ -19,7 +19,7 @@ class ChangeWidthOperation {
   private int myCurrentLineLength;
 
   ChangeWidthOperation(@NotNull TerminalTextBuffer textBuffer,
-                       int newWidth, int newHeight) { 
+                       int newWidth, int newHeight) {
     myTextBuffer = textBuffer;
     myNewWidth = newWidth;
     myNewHeight = newHeight;
@@ -48,7 +48,7 @@ class ChangeWidthOperation {
   }
 
   void run() {
-    LinesStorage historyLinesStorage = myTextBuffer.getHistoryLinesStorageOrBackup$core();
+    LinesStorage historyLinesStorage = myTextBuffer.getHistoryLinesStorageOrBackup$jediterm_core();
     for (int i = 0; i < historyLinesStorage.getSize(); i++) {
       TerminalLine line = historyLinesStorage.get(i);
       addLine(line);
@@ -60,7 +60,7 @@ class ChangeWidthOperation {
     if (screenStartInd < 0) {
       throw new IndexOutOfBoundsException("screenStartInd < 0: " + screenStartInd);
     }
-    LinesStorage screenLinesStorage = myTextBuffer.getScreenLinesStorageOrBackup$core();
+    LinesStorage screenLinesStorage = myTextBuffer.getScreenLinesStorageOrBackup$jediterm_core();
     if (screenLinesStorage.getSize() > myTextBuffer.getHeight()) {
       LOG.warn("Terminal height < screen buffer line count: " + myTextBuffer.getHeight() + " < " + screenLinesStorage.getSize());
     }
