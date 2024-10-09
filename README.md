@@ -31,18 +31,20 @@ Or use the binary distribution from the [Releases](https://github.com/JetBrains/
 Build
 -----
 
-Gradle is used to build this project. The project consists of 4 sub-projects:
-* **terminal**
+This project was translated to **maven** to be compatible with another project where is used [Tauon SSH](https://github.com/achiikun/tauon-ssh).
 
-    The core library that provides VT100 compatible terminal emulator and Java Swing based implementation of terminal panel UI.
+~~Gradle is used to build this project. The project consists of 4 sub-projects:~~
+* ~~**terminal**~~
 
-* **pty**
+    ~~The core library that provides VT100 compatible terminal emulator and Java Swing based implementation of terminal panel UI.~~
 
-    The jediterm-pty.jar library that, by using the [Pty4J](https://github.com/traff/pty4j) library, enables a terminal for local PTY terminal sessions.
+* ~~**pty**~~
 
-* **JediTerm**
+    ~~The jediterm-pty.jar library that, by using the [Pty4J](https://github.com/traff/pty4j) library, enables a terminal for local PTY terminal sessions.~~
 
-    The standalone version of the JediTerm terminal distributed as a .dmg for Mac OSX.
+* ~~**JediTerm**~~
+
+    ~~The standalone version of the JediTerm terminal distributed as a .dmg for Mac OSX.~~
 
 
 Features
