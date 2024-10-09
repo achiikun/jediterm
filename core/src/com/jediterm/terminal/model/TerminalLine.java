@@ -66,6 +66,13 @@ public final class TerminalLine {
     return x < text.length() ? text.charAt(x) : CharUtils.EMPTY_CHAR;
   }
 
+  /**
+   * @return total length of text entries.
+   */
+  public int length() {
+    return myTextEntries.length();
+  }
+
   public boolean isWrapped() {
     return myWrapped;
   }
@@ -77,7 +84,6 @@ public final class TerminalLine {
   public void clear(@NotNull TextEntry filler) {
     myTextEntries.clear();
     myTextEntries.add(filler);
-    setWrapped(false);
   }
 
   public void writeString(int x, @NotNull CharBuffer str, @NotNull TextStyle style) {
@@ -174,8 +180,6 @@ public final class TerminalLine {
 
   public void deleteCharacters(int x, @NotNull TextStyle style) {
     deleteCharacters(x, myTextEntries.length() - x, style);
-    // delete to the end of line : line is no more wrapped
-    setWrapped(false);
   }
 
   public void deleteCharacters(int x, int count, @NotNull TextStyle style) {

@@ -4,6 +4,7 @@ import com.jediterm.pty.PtyProcessTtyConnector
 import com.jediterm.terminal.LoggingTtyConnector
 import com.jediterm.terminal.LoggingTtyConnector.TerminalState
 import com.jediterm.terminal.TtyConnector
+import com.jediterm.terminal.model.getLinesAsString
 import com.jediterm.terminal.ui.JediTermWidget
 import com.jediterm.terminal.ui.settings.SettingsProvider
 import com.jediterm.ui.AbstractTerminalFrame
@@ -88,7 +89,7 @@ class JediTerm : AbstractTerminalFrame() {
   }
 
   override fun createTerminalWidget(settingsProvider: SettingsProvider): JediTermWidget {
-    val widget = JediTermWidget(settingsProvider)
+    val widget = super.createTerminalWidget(settingsProvider)
     widget.addHyperlinkFilter(UrlFilter())
     return widget
   }
@@ -115,9 +116,9 @@ class JediTerm : AbstractTerminalFrame() {
 
         val terminalTextBuffer = myWidget!!.terminalTextBuffer
         val terminalState = TerminalState(
-          terminalTextBuffer.screenLines,
+          terminalTextBuffer.getScreenLines(),
           TerminalDebugUtil.getStyleLines(terminalTextBuffer),
-          terminalTextBuffer.historyBuffer.lines
+          terminalTextBuffer.historyLinesStorage.getLinesAsString()
         )
         myStates.add(terminalState)
 

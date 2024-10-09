@@ -276,7 +276,7 @@ public class TerminalPanel extends JComponent implements TerminalDisplay, Termin
             // select line
             final Point charCoords = panelToCharCoords(e.getPoint());
             int startLine = charCoords.y;
-            while (startLine > -getScrollBuffer().getLineCount()
+            while (startLine > -getScrollLinesStorage().getSize()
                     && myTerminalTextBuffer.getLine(startLine - 1).isWrapped()) {
               startLine--;
             }
@@ -1100,6 +1100,7 @@ public class TerminalPanel extends JComponent implements TerminalDisplay, Termin
     // cursor state
     private boolean myCursorIsShown; // blinking state
     private final Point myCursorCoordinates = new Point();
+    private @NotNull CursorShape myDefaultCursorShape = CursorShape.BLINK_BLOCK;
     private @Nullable CursorShape myShape;
 
     // terminal modes
@@ -1236,7 +1237,11 @@ public class TerminalPanel extends JComponent implements TerminalDisplay, Termin
     }
 
     @NotNull CursorShape getEffectiveShape() {
-      return Objects.requireNonNullElse(myShape, CursorShape.BLINK_BLOCK);
+      return Objects.requireNonNullElse(myShape, myDefaultCursorShape);
+    }
+
+    private void setDefaultShape(@NotNull CursorShape defaultShape) {
+      myDefaultCursorShape = defaultShape;
     }
   }
 
@@ -1256,10 +1261,10 @@ public class TerminalPanel extends JComponent implements TerminalDisplay, Termin
     TextStyle.Builder builder = new TextStyle.Builder(style);
     builder.setOption(Option.INVERSE, !style.hasOption(Option.INVERSE));
     if (style.getForeground() == null) {
-      builder.setForeground(myStyleState.getForeground());
+      builder.setForeground(myStyleState.getDefaultForeground());
     }
     if (style.getBackground() == null) {
-      builder.setBackground(myStyleState.getBackground());
+      builder.setBackground(myStyleState.getDefaultBackground());
     }
     return builder.build();
   }
@@ -1548,6 +1553,10 @@ public class TerminalPanel extends JComponent implements TerminalDisplay, Termin
     myCursor.setShape(cursorShape);
   }
 
+  public void setDefaultCursorShape(@NotNull CursorShape defaultCursorShape) {
+    myCursor.setDefaultShape(defaultCursorShape);
+  }
+
   public void beep() {
     if (mySettingsProvider.audibleBell()) {
       Toolkit.getDefaultToolkit().beep();
@@ -1600,8 +1609,15 @@ public class TerminalPanel extends JComponent implements TerminalDisplay, Termin
     myBracketedPasteMode = bracketedPasteModeEnabled;
   }
 
+  // Use getScrollLinesStorage instead
+  @SuppressWarnings("removal")
+  @Deprecated(forRemoval = true)
   public LinesBuffer getScrollBuffer() {
     return myTerminalTextBuffer.getHistoryBuffer();
+  }
+
+  public LinesStorage getScrollLinesStorage() {
+    return myTerminalTextBuffer.getHistoryLinesStorage();
   }
 
   @Override
