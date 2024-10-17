@@ -309,6 +309,7 @@ class TerminalTextBuffer(
     if (index >= 0) {
       if (index >= height) {
         LOG.error("Attempt to get line out of bounds: $index >= $height")
+        Exception().printStackTrace()
         return TerminalLine.createEmpty()
       }
       return screenLinesStorage[index]
@@ -316,6 +317,7 @@ class TerminalTextBuffer(
     else {
       if (index < -historyLinesCount) {
         LOG.error("Attempt to get line out of bounds: $index < ${-historyLinesCount}")
+        Exception().printStackTrace()
         return TerminalLine.createEmpty()
       }
       return historyLinesStorage[historyLinesCount + index]
