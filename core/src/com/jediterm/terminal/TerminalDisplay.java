@@ -47,4 +47,7 @@ public interface TerminalDisplay {
   default @Nullable Color getWindowBackground() {
     return null;
   }
+  
+  default void insertMode(boolean enabled) {}
+  
 }

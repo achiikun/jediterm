@@ -67,15 +67,21 @@ public enum TerminalMode {
     }
   },
   AllowWideColumn,
-  ReverseWrapAround, 
+  ReverseWrapAround,
   AutoNewLine {
     @Override
     public void setEnabled(Terminal terminal, boolean enabled) {
       terminal.setAutoNewLine(enabled);
     }
-  }, 
-  KeyboardAction, 
-  InsertMode,
+  },
+  KeyboardAction,
+  InsertMode {
+    @Override
+    public void setEnabled(Terminal terminal, boolean enabled) {
+      // Not implemented for now. The method is overridden to suppress warnings.
+      terminal.setInsertMode(enabled);
+    }
+  },
   SendReceive,
   EightBitInput {
       @Override

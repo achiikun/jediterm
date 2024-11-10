@@ -119,7 +119,9 @@ public class TerminalPanel extends JComponent implements TerminalDisplay, Termin
   private boolean myFillCharacterBackgroundIncludingLineSpacing;
   private @Nullable TextStyle myCachedSelectionColor;
   private @Nullable TextStyle myCachedFoundPatternColor;
-
+  
+  private boolean myInsertMode;
+  
   public TerminalPanel(@NotNull SettingsProvider settingsProvider, @NotNull TerminalTextBuffer terminalTextBuffer, @NotNull StyleState styleState) {
     mySettingsProvider = settingsProvider;
     myTerminalTextBuffer = terminalTextBuffer;
@@ -1552,7 +1554,12 @@ public class TerminalPanel extends JComponent implements TerminalDisplay, Termin
   public void setCursorShape(@Nullable CursorShape cursorShape) {
     myCursor.setShape(cursorShape);
   }
-
+  
+  @Override
+  public void insertMode(boolean enabled) {
+    myInsertMode = enabled;
+  }
+  
   public void setDefaultCursorShape(@NotNull CursorShape defaultCursorShape) {
     myCursor.setDefaultShape(defaultCursorShape);
   }

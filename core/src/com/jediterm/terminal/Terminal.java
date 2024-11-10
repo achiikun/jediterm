@@ -183,4 +183,6 @@ public interface Terminal {
   default void removeCustomCommandListener(@NotNull TerminalCustomCommandListener listener) {}
 
   default void processCustomCommand(@NotNull List<String> args) {}
+  
+  default void setInsertMode(boolean enabled) {}
 }

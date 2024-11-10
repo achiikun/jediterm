@@ -268,6 +268,10 @@ class TerminalTextBuffer(
     writeString(x, y, str, styleState.current)
   }
 
+  fun insertString(x: Int, y: Int, str: CharBuffer) {
+    insertString(x, y, str, styleState.current)
+  }
+
   fun addLine(line: TerminalLine) {
     screenLinesStorage.addToBottom(line)
     fireModelChangeEvent()
@@ -277,6 +281,15 @@ class TerminalTextBuffer(
   private fun writeString(x: Int, y: Int, str: CharBuffer, style: TextStyle) {
     val line = screenLinesStorage[y - 1]
     line.writeString(x, str, style)
+
+    textProcessing?.processHyperlinks(screenLinesStorage, line)
+    fireModelChangeEvent()
+    changesMulticaster.linesChanged(fromIndex = y - 1)
+  }
+
+  private fun insertString(x: Int, y: Int, str: CharBuffer, style: TextStyle) {
+    val line = screenLinesStorage[y - 1]
+    line.insertString(x, str, style)
 
     textProcessing?.processHyperlinks(screenLinesStorage, line)
     fireModelChangeEvent()
