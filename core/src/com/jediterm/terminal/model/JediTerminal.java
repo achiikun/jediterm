@@ -1011,7 +1011,7 @@ public class JediTerminal implements Terminal, TerminalMouseListener, TerminalCo
 
   @Override
   public void mouseWheelMoved(int x, int y, @NotNull MouseWheelEvent event) {
-    // mousePressed() handles mouse wheel using SCROLLDOWN and SCROLLUP buttons 
+    // mousePressed() handles mouse wheel using SCROLLDOWN and SCROLLUP buttons
     mousePressed(x, y, event);
   }
 
@@ -1047,7 +1047,7 @@ public class JediTerminal implements Terminal, TerminalMouseListener, TerminalCo
   @Override
   public void setLinkUriStarted(@NotNull String uri) {
     TextStyle style = myStyleState.getCurrent();
-    TextProcessing textProcessing = myTerminalTextBuffer.getTextProcessing$core();
+    TextProcessing textProcessing = myTerminalTextBuffer.getTextProcessing$jediterm_core();
     if (textProcessing != null) {
       List<LinkResultItem> linkResultItems = textProcessing.applyFilter(uri);
       linkResultItems.stream()
