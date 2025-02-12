@@ -931,7 +931,7 @@ public class JediTerminal implements Terminal, TerminalMouseListener, TerminalCo
 
   @Override
   public void mousePressed(int x, int y, @NotNull MouseEvent event) {
-    if (shouldSendMouseData(MouseMode.MOUSE_REPORTING_NORMAL, MouseMode.MOUSE_REPORTING_BUTTON_MOTION)) {
+    if (shouldSendMouseData(MouseMode.MOUSE_REPORTING_NORMAL_ONLY_PRESS, MouseMode.MOUSE_REPORTING_NORMAL_PRESS_RELEASE, MouseMode.MOUSE_REPORTING_BUTTON_MOTION)) {
       int cb = event.getButtonCode();
 
       if (cb != MouseButtonCodes.NONE) {
@@ -953,7 +953,7 @@ public class JediTerminal implements Terminal, TerminalMouseListener, TerminalCo
 
   @Override
   public void mouseReleased(int x, int y, @NotNull MouseEvent event) {
-    if (shouldSendMouseData(MouseMode.MOUSE_REPORTING_NORMAL, MouseMode.MOUSE_REPORTING_BUTTON_MOTION)) {
+    if (shouldSendMouseData(MouseMode.MOUSE_REPORTING_NORMAL_PRESS_RELEASE, MouseMode.MOUSE_REPORTING_BUTTON_MOTION)) {
       int cb = event.getButtonCode();
 
       if (cb != MouseButtonCodes.NONE) {

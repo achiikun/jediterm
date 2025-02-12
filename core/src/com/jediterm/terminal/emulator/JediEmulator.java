@@ -605,9 +605,16 @@ public class JediEmulator extends DataStreamIteratingEmulator {
           setModeEnabled(TerminalMode.StoreCursor, enabled);
           setModeEnabled(TerminalMode.AlternateBuffer, enabled);
           return true;
+        case 9:
+          if (enabled) {
+            setMouseMode(MouseMode.MOUSE_REPORTING_NORMAL_ONLY_PRESS);
+          } else {
+            setMouseMode(MouseMode.MOUSE_REPORTING_NONE);
+          }
+          return true;
         case 1000:
           if (enabled) {
-            setMouseMode(MouseMode.MOUSE_REPORTING_NORMAL);
+            setMouseMode(MouseMode.MOUSE_REPORTING_NORMAL_PRESS_RELEASE);
           } else {
             setMouseMode(MouseMode.MOUSE_REPORTING_NONE);
           }
