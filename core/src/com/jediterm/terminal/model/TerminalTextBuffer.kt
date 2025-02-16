@@ -79,12 +79,12 @@ class TerminalTextBuffer internal constructor(
   private val changesMulticaster: TextBufferChangesMulticaster = TextBufferChangesMulticaster()
 
   @JvmOverloads
-  constructor(width: Int, height: Int, styleState: StyleState, textProcessing: TextProcessing? = null) : this(
+  constructor(width: Int, height: Int, styleState: StyleState, maxHistoryLinesCount: Int = LinesStorage.DEFAULT_MAX_LINES_COUNT) : this(
     width,
     height,
     styleState,
-    LinesStorage.DEFAULT_MAX_LINES_COUNT,
-    textProcessing
+    maxHistoryLinesCount,
+    textProcessing = null
   )
 
   private fun createScreenLinesStorage(): LinesStorage {
@@ -295,7 +295,14 @@ class TerminalTextBuffer internal constructor(
         Exception().printStackTrace()
         return TerminalLine.createEmpty()
       }
-      return screenLinesStorage[index]
+      val sizeBefore = screenLinesStorage.size
+      val line = screenLinesStorage[index]
+      if (index >= sizeBefore) {
+        // Lines Storage creates lines up to the requested index if there were no lines.
+        // So we need to report it in this case.
+        changesMulticaster.linesChanged(index)
+      }
+      return line
     }
     else {
       if (index < -historyLinesCount) {
@@ -462,6 +469,7 @@ class TerminalTextBuffer internal constructor(
     screenLinesStorage.clear()
     historyLinesStorage.clear()
     fireModelChangeEvent()
+    changesMulticaster.historyCleared()
     changesMulticaster.linesChanged(fromIndex = 0)
   }
 
@@ -502,9 +510,10 @@ class TerminalTextBuffer internal constructor(
       if (lineCount > 0) {
         fireHistoryBufferLineCountChanged()
       }
+      fireModelChangeEvent()
+      changesMulticaster.historyCleared()
+      changesMulticaster.linesChanged(fromIndex = 0)
     }
-    fireModelChangeEvent()
-    changesMulticaster.linesChanged(fromIndex = 0)
   }
 
   fun moveScreenLinesToHistory() {
