@@ -43,7 +43,7 @@ public class TextProcessing {
       @Override
       public void linesDiscardedFromHistory(@NotNull List<@NotNull TerminalLine> lines) {
         for (TerminalLine line : lines) {
-          TerminalLineUtil.INSTANCE.incModificationCount$core(line);
+          TerminalLineUtil.INSTANCE.incModificationCount$jediterm_core(line);
         }
       }
 
@@ -265,8 +265,8 @@ public class TextProcessing {
       initialModificationCounts = new int[linesToProcess.size()];
       int i = 0;
       for (TerminalLine line : linesToProcess) {
-        TerminalLineUtil.INSTANCE.incModificationCount$core(line);
-        initialModificationCounts[i++] = TerminalLineUtil.INSTANCE.getModificationCount$core(line);
+        TerminalLineUtil.INSTANCE.incModificationCount$jediterm_core(line);
+        initialModificationCounts[i++] = TerminalLineUtil.INSTANCE.getModificationCount$jediterm_core(line);
       }
       myTerminalWidth = terminalWidth;
     }
@@ -283,7 +283,7 @@ public class TextProcessing {
     private boolean areLinesUpToDate() {
       for (int i = 0; i < myLinesToProcess.size(); i++) {
         TerminalLine line = myLinesToProcess.get(i);
-        if (TerminalLineUtil.INSTANCE.getModificationCount$core(line) != initialModificationCounts[i]) {
+        if (TerminalLineUtil.INSTANCE.getModificationCount$jediterm_core(line) != initialModificationCounts[i]) {
           return false;
         }
       }
