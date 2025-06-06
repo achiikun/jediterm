@@ -9,7 +9,7 @@
 
   <groupId>org.jetbrains.jediterm</groupId>
   <artifactId>jediterm-core</artifactId>
-  <version>3.44-SNAPSHOT</version>
+  <version>3.53-SNAPSHOT</version>
 
   <name>JediTerm</name>
   <description>Pure Java Terminal Emulator</description>
